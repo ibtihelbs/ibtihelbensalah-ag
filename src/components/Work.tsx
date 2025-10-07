@@ -12,8 +12,8 @@ export default function Work({ isDark }: WorkProps) {
 
   const getIconSrc = (icon: string) => {
     return isDark
-      ? `./images/icons/${icon}-dark.svg`
-      : `./images/icons/${icon}.svg`;
+      ? `./images/icons/${icon}.svg`
+      : `./images/icons/${icon}-dark.svg`;
   };
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function Work({ isDark }: WorkProps) {
           </div>
 
           {/* Additional project info */}
-          {selectedProject?.category && (
+          {/*selectedProject?.category && (
             <div className="project-meta">
               <span className="category">{selectedProject.category}</span>
               {selectedProject.completedDate && (
@@ -107,7 +107,7 @@ export default function Work({ isDark }: WorkProps) {
                 <span className="featured-badge">Featured</span>
               )}
             </div>
-          )}
+          )*/}
         </div>
 
         {/* Projects List */}
