@@ -27,7 +27,7 @@ export default function App() {
           <Hero />
           <About />
           <Services />
-          <Work />
+          <Work isDark={isDark} />
           <Pricing />
         </main>
         <Footer isDark={isDark} />

@@ -1,40 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getPricingPlans, type PricingPlan } from "../sanity.io";
 
 export default function Pricing() {
   const [currentPricingIndex, setCurrentPricingIndex] = useState(0);
+  const [plans, setPlans] = useState<PricingPlan[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const plans = [
-    {
-      name: "Starter",
-      price: "$300",
-      features: [
-        "Up to 3 pages",
-        "Responsive design",
-        "Basic SEO setup",
-        "1 week delivery",
-      ],
-    },
-    {
-      name: "Pro",
-      price: "$700",
-      features: [
-        "Up to 7 pages",
-        "Custom animations",
-        "CMS integration",
-        "SEO optimization",
-      ],
-    },
-    {
-      name: "Premium",
-      price: "$1200",
-      features: [
-        "Unlimited pages",
-        "E-commerce store",
-        "Priority support",
-        "Advanced performance & SEO",
-      ],
-    },
-  ];
+  useEffect(() => {
+    async function loadPricingPlans() {
+      const data = await getPricingPlans();
+      setPlans(data);
+      setLoading(false);
+    }
+    loadPricingPlans();
+  }, []);
+
+  // Format currency display
+  const formatPrice = (plan: PricingPlan) => {
+    const currencySymbols: { [key: string]: string } = {
+      USD: "$",
+      EUR: "€",
+      GBP: "£",
+      TND: "DT ",
+    };
+
+    const symbol = currencySymbols[plan.currency] || plan.currency;
+    return `${symbol}${plan.price}`;
+  };
+
+  if (loading) {
+    return (
+      <section id="pricing-section">
+        <h1 className="text-center">pricing</h1>
+        <p className="text-center">Loading pricing plans...</p>
+      </section>
+    );
+  }
 
   return (
     <section id="pricing-section">
@@ -45,31 +46,48 @@ export default function Pricing() {
         miss the chance to launch your modern, responsive site at the best
         price!
       </p>
+
+      {/* Mobile pricing selector */}
       <div className="mobile-pricing text-center">
         {plans.map((plan, index) => (
           <button
-            key={index}
+            key={plan._id}
             className={`pill ${
               currentPricingIndex === index ? "current-offer" : ""
-            }`}
+            } ${plan.highlighted ? "highlighted" : ""}`}
             onClick={() => setCurrentPricingIndex(index)}
           >
             {plan.name}
+            {plan.highlighted && " ⭐"}
           </button>
         ))}
       </div>
+
+      {/* Pricing grid */}
       <div className="pricing-grid">
         {plans.map((plan, index) => (
           <div
-            key={index}
+            key={plan._id}
             className={`pricing-card ${
               currentPricingIndex === index ? "current" : ""
-            }`}
+            } ${plan.highlighted ? "highlighted-plan" : ""}`}
           >
-            <h3>
-              {plan.name} – {plan.price}
-            </h3>
+            {/* Plan header */}
+            <div className="plan-header">
+              <h3>
+                {plan.name} – {formatPrice(plan)}
+                {plan.highlighted && (
+                  <span className="popular-badge">Most Popular</span>
+                )}
+              </h3>
+              {plan.deliveryTime && (
+                <p className="delivery-time">🚀 {plan.deliveryTime}</p>
+              )}
+            </div>
+
             <hr />
+
+            {/* Features list */}
             <ul>
               {plan.features.map((feature, i) => (
                 <li key={i}>
@@ -78,6 +96,9 @@ export default function Pricing() {
                 </li>
               ))}
             </ul>
+
+            {/* CTA Button */}
+            <button className="cta-button">Get Started</button>
           </div>
         ))}
       </div>

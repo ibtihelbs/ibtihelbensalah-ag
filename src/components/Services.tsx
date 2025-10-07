@@ -18,7 +18,10 @@ const services = [
     hover: "Build your startup idea quickly and effectively.",
   },
 ];
-
+type serviceType = {
+  title: string;
+  hover: string;
+};
 export default function Services() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -26,7 +29,7 @@ export default function Services() {
     <section id="services-section">
       <h1 className="text-center">What do i provide</h1>
       <ul>
-        {services.map((service, index) => (
+        {services.map((service: serviceType, index: any) => (
           <li
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}

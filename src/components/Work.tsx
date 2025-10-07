@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { getProjects, type Project, urlFor } from "../sanity.io";
 
-export default function Work({ isDark }: { isDark: boolean }) {
+type WorkProps = {
+  isDark: boolean;
+};
+
+export default function Work({ isDark }: WorkProps) {
   const [projects, setProjects] = useState<Project[] | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
 
   const getIconSrc = (icon: string) => {
     return isDark
-      ? `./images/icons/${icon}.svg`
-      : `./images/icons/${icon}-dark.svg`;
+      ? `./images/icons/${icon}-dark.svg`
+      : `./images/icons/${icon}.svg`;
   };
 
   useEffect(() => {
@@ -69,7 +73,7 @@ export default function Work({ isDark }: { isDark: boolean }) {
                   <img src={getIconSrc("link")} alt="Live demo" />
                 </a>
               )}
-              {selectedProject?.githubUrl && (
+              {/*selectedProject?.githubUrl && (
                 <a
                   href={selectedProject.githubUrl}
                   target="_blank"
@@ -78,7 +82,7 @@ export default function Work({ isDark }: { isDark: boolean }) {
                 >
                   <img src={getIconSrc("github")} alt="GitHub" />
                 </a>
-              )}
+              )*/}
             </div>
           </div>
           <p>{selectedProject?.description}</p>
@@ -108,7 +112,7 @@ export default function Work({ isDark }: { isDark: boolean }) {
 
         {/* Projects List */}
         <ul className="projects-list">
-          {projects?.map((project: Project, index: number) => (
+          {projects?.map((project: Project) => (
             <li
               key={project._id}
               onClick={() => setSelectedProject(project)}
