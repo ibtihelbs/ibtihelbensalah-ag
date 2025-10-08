@@ -8,7 +8,10 @@ export default function Footer({ isDark }: { isDark: boolean }) {
   return (
     <footer id="contact">
       <h1 className="text-center">contact</h1>
-      <a href="mailto:ibtihel.bensalah@outlook.fr">click to email me</a>
+      <a href="mailto:&#105;&#98;&#116;&#105;&#104;&#101;&#108;&#46;&#98;&#101;&#110;&#115;&#97;&#108;&#97;&#104;&#64;&#111;&#117;&#116;&#108;&#111;&#111;&#107;&#46;&#102;&#114;">
+        click to email me
+      </a>
+
       <ul>
         <li>
           <a

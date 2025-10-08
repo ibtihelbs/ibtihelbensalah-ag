@@ -71,8 +71,8 @@ video {
   --font-family-heading: "Domine", serif;
   --font-family-heading-span: "Dynalight", cursive;
 
-  --font-size-base: clamp(12px, 2vw, 20px);
-  --font-size-h4: clamp(16px, 3vw, 24px);
+  --font-size-base: clamp(12px, 1vw, 20px);
+  --font-size-h4: clamp(16px, 2.5vw, 20px);
   --font-size-h3: clamp(20px, 5vw, 28px);
   --font-size-h2: clamp(30px, 8vw, 48px);
   --font-size-h1: clamp(36px, 10vw, 64px);
@@ -165,8 +165,10 @@ button {
   border-radius: var(--button-radius);
   font-size: var(--font-size-base);
 }
-.get-started {
+a.get-started {
   border: var(--dark-bg) solid;
+  margin-top: var(--space-2);
+  color: var(--dark-bg) !important;
 }
 .cta {
   background: var(--dark-accent);
@@ -498,10 +500,10 @@ body.light #services-section li:nth-child(5)::before {
   border-radius: var(--card-radius);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-xl);
+  gap: var(--space-2);
   transition: transform var(--transition-base), var(--transition-base);
   background-color: var(--dark-text);
-
+  align-items: center;
   color: var(--dark-bg);
 }
 
@@ -640,12 +642,12 @@ footer a:hover img {
     display: flex;
     justify-content: space-between;
     background-color: var(--dark-text);
-    color: var(--dark-bg);
     border-radius: var(--radius-pill);
   }
   .mobile-pricing button {
     padding: 0.5rem 1rem;
     font-size: var(--font-size-base);
+    color: var(--dark-bg);
   }
   .pricing-card {
     display: none;
@@ -653,7 +655,7 @@ footer a:hover img {
   .pricing-card.current {
     display: flex;
   }
-  .current-offer {
+  .mobile-pricing button.current-offer {
     background-color: var(--dark-bg);
     color: var(--dark-text);
   }

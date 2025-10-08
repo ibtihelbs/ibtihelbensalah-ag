@@ -80,9 +80,8 @@ export default function Pricing() {
                   <span className="popular-badge">Most Popular</span>
                 )}
               </h3>
-              <h4>
-                {formatPrice(plan)} - {plan.deliveryTime && plan.deliveryTime}
-              </h4>
+              <h4>starting from {formatPrice(plan)} </h4>
+              <p>{plan.deliveryTime && plan.deliveryTime}</p>
             </div>
 
             <hr />
@@ -90,15 +89,21 @@ export default function Pricing() {
             {/* Features list */}
             <ul>
               {plan.features.map((feature, i) => (
-                <li key={i}>
-                  {feature}
+                <>
+                  <li key={i}>{feature}</li>
                   {i < plan.features.length - 1 && <hr />}
-                </li>
+                </>
               ))}
             </ul>
 
             {/* CTA Button */}
-            <button className="pill get-started">Get Started</button>
+
+            <a
+              className="pill get-started"
+              href="mailto:&#105;&#98;&#116;&#105;&#104;&#101;&#108;&#46;&#98;&#101;&#110;&#115;&#97;&#108;&#97;&#104;&#64;&#111;&#117;&#116;&#108;&#111;&#111;&#107;&#46;&#102;&#114;"
+            >
+              Get Started
+            </a>
           </div>
         ))}
       </div>
