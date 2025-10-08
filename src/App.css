@@ -74,7 +74,7 @@ video {
   --font-size-base: clamp(12px, 1vw, 20px);
   --font-size-h4: clamp(16px, 2.5vw, 20px);
   --font-size-h3: clamp(20px, 5vw, 28px);
-  --font-size-h2: clamp(30px, 8vw, 48px);
+  --font-size-h2: clamp(30px, 7vw, 48px);
   --font-size-h1: clamp(36px, 10vw, 64px);
 
   --font-weight-bold: 700;
