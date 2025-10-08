@@ -5,7 +5,11 @@ export default function Hero() {
         i create effective <span>yet</span> engaging websites
       </h1>
       <button className="pill cta">contact</button>
-      <img src="./images/hero.png" alt="Agency hero illustration" />
+      <img
+        loading="lazy"
+        src="./images/hero.png"
+        alt="Agency hero illustration"
+      />
     </section>
   );
 }

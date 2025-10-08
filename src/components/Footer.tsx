@@ -4,7 +4,6 @@ export default function Footer({ isDark }: { isDark: boolean }) {
       ? `./images/icons/${icon}.svg`
       : `./images/icons/${icon}-dark.svg`;
   };
-  console.log(getIconSrc("sun"));
 
   return (
     <footer id="contact">

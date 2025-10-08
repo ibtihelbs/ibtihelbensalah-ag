@@ -25,7 +25,7 @@ export default function Pricing() {
     };
 
     const symbol = currencySymbols[plan.currency] || plan.currency;
-    return `${symbol}${plan.price}`;
+    return `${plan.price} ${symbol}`;
   };
 
   if (loading) {
@@ -41,7 +41,7 @@ export default function Pricing() {
     <section id="pricing-section">
       <h1 className="text-center">pricing</h1>
       <p className="text-center">
-        🎉 Special Offer – Limited until the 1st of each month! 🎉 Book your
+        Special Offer – Limited until the 1st of each month! 🎉 Book your
         website project before the 1st and enjoy -20% off on any pack. Don't
         miss the chance to launch your modern, responsive site at the best
         price!
@@ -75,14 +75,14 @@ export default function Pricing() {
             {/* Plan header */}
             <div className="plan-header">
               <h3>
-                {plan.name} – {formatPrice(plan)}
+                {plan.name}
                 {plan.highlighted && (
                   <span className="popular-badge">Most Popular</span>
                 )}
               </h3>
-              {plan.deliveryTime && (
-                <p className="delivery-time">🚀 {plan.deliveryTime}</p>
-              )}
+              <h4>
+                {formatPrice(plan)} - {plan.deliveryTime && plan.deliveryTime}
+              </h4>
             </div>
 
             <hr />
@@ -98,7 +98,7 @@ export default function Pricing() {
             </ul>
 
             {/* CTA Button */}
-            <button className="cta-button">Get Started</button>
+            <button className="pill get-started">Get Started</button>
           </div>
         ))}
       </div>

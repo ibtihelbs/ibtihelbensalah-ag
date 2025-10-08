@@ -16,7 +16,7 @@ export default function Header({
   };
   return (
     <header>
-      <h4 className="cursive">ibtihel bs</h4>
+      <h4 className="cursive">ibtihel ben salah</h4>
       <nav>
         <button
           className="menu-toggle"
