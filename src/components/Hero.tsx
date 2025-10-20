@@ -68,7 +68,15 @@ export default function HeroAndAbout() {
           let's talk
         </a>
         {heroImage && (
-          <img loading="lazy" src={heroImage} alt="Agency hero illustration" />
+          <img
+            src={urlFor(heroImage)
+              .width(window.innerWidth > 768 ? 800 : 500)
+              .format("webp")
+              .url()}
+            alt="Agency hero illustration"
+            width={window.innerWidth > 768 ? 800 : 500}
+            height={window.innerWidth > 768 ? 662 : 414}
+          />
         )}
       </section>
 
