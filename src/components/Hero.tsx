@@ -81,7 +81,7 @@ export default function HeroAndAbout() {
             about.features.map((feature, index) => (
               <span key={index}>
                 {feature.text}
-                {index < about.features.length - 1 ? " · " : ""}
+                {index < about?.features!.length - 1 ? " · " : ""}
               </span>
             ))
           ) : (
