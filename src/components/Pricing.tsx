@@ -90,7 +90,7 @@ export default function Pricing() {
             <ul>
               {plan.features.map((feature, i) => (
                 <>
-                  <li key={i}>{feature}</li>
+                  <li key={Math.random()}>{feature}</li>
                   {i < plan.features.length - 1 && <hr />}
                 </>
               ))}
