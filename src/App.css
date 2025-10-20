@@ -196,7 +196,7 @@ h4 {
 
 h1 span {
   font-family: var(--font-family-heading-span);
-  text-transform: capitalize;
+  text-transform: capitalize !important;
 }
 
 h1 {
@@ -558,9 +558,9 @@ footer a {
   font-weight: var(--font-weight-medium);
 }
 
-footer ul {
+footer div {
   display: flex;
-  gap: var(--gap-xl);
+  gap: var(--gap-md);
   margin-top: var(--space-6);
 }
 

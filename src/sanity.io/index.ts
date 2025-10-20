@@ -3,7 +3,6 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 // Initialize Sanity client
-// Access environment variables
 const SANITY_PROJECT_ID = import.meta.env.VITE_SANITY_PROJECT_ID;
 const SANITY_DATASET = import.meta.env.VITE_SANITY_DATASET;
 const SANITY_API_VERSION = import.meta.env.VITE_SANITY_API_VERSION;
@@ -21,22 +20,32 @@ export function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
-// Type definitions based on your schemas
+// Type definitions
+export interface SocialLink {
+  platform: string;
+  url: string;
+  lightIcon: any;
+  darkIcon: any;
+  altText: string;
+}
+
+export interface AboutSection {
+  heading: string;
+  description: string;
+  image: any;
+  features: Array<{ text: string }>;
+}
+
 export interface SiteSettings {
   title: string;
   description: string;
   logo: any;
   heroHeadline: string;
-  heroSubheadline: string;
   heroImage: any;
   email: string;
   phone: string;
-  socialLinks: {
-    github: string;
-    linkedin: string;
-    twitter: string;
-    instagram: string;
-  };
+  socialLinks: SocialLink[];
+  about: AboutSection;
   specialOffer: {
     enabled: boolean;
     text: string;
@@ -72,7 +81,7 @@ export interface Project {
   liveUrl: string;
   githubUrl: string;
   featured: boolean;
-  order: number;
+  orderNumber: number;
   completedDate: string;
 }
 
@@ -87,19 +96,48 @@ export interface PricingPlan {
   order: number;
 }
 
-// Sanity queries matching your schema fields
+export interface BlogPost {
+  _id: string;
+  title: string;
+  slug: {
+    current: string;
+  };
+  excerpt: string;
+  content: any[];
+  featuredImage: any;
+  author: string;
+  publishedAt: string;
+  category: string;
+  tags: string[];
+}
+
+// Sanity queries
 export const queries = {
   siteSettings: `*[_type == "siteSettings"][0]{
     title,
     description,
     logo,
     heroHeadline,
-    heroSubheadline,
     heroImage,
     email,
     phone,
-    socialLinks,
+    about{
+      heading,
+      description,
+      image,
+      features[]{ text }
+    },
     specialOffer
+  }`,
+
+  socialSettings: `*[_type == "socialSettings"][0]{
+    links[]{
+      platform,
+      url,
+      lightIcon,
+      darkIcon,
+      altText
+    }
   }`,
 
   services: `*[_type == "service"] | order(order asc){
@@ -114,7 +152,7 @@ export const queries = {
     order
   }`,
 
-  projects: `*[_type == "project"] | order(order asc){
+  projects: `*[_type == "project"] | order(orderNumber asc){
     _id,
     title,
     slug,
@@ -126,7 +164,7 @@ export const queries = {
     liveUrl,
     githubUrl,
     featured,
-    order,
+    orderNumber,
     completedDate
   }`,
 
@@ -139,6 +177,19 @@ export const queries = {
     deliveryTime,
     highlighted,
     order
+  }`,
+
+  blogPosts: `*[_type == "blogPost"] | order(publishedAt desc){
+    _id,
+    title,
+    slug,
+    excerpt,
+    content,
+    featuredImage,
+    author,
+    publishedAt,
+    category,
+    tags
   }`,
 };
 
@@ -179,10 +230,19 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
   }
 }
 
-// Additional utility functions
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  try {
+    return await client.fetch(queries.blogPosts);
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return [];
+  }
+}
+
+// Utility functions
 export async function getFeaturedProjects(): Promise<Project[]> {
   try {
-    const query = `*[_type == "project" && featured == true] | order(order asc){
+    const query = `*[_type == "project" && featured == true] | order(orderNumber asc){
       _id,
       title,
       slug,
@@ -193,7 +253,7 @@ export async function getFeaturedProjects(): Promise<Project[]> {
       liveUrl,
       githubUrl,
       featured,
-      order
+      orderNumber
     }`;
     return await client.fetch(query);
   } catch (error) {
@@ -216,7 +276,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
       liveUrl,
       githubUrl,
       featured,
-      order,
+      orderNumber,
       completedDate
     }`;
     return await client.fetch(query, { slug });
@@ -262,5 +322,50 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
   } catch (error) {
     console.error("Error fetching service by slug:", error);
     return null;
+  }
+}
+
+export async function getBlogPostBySlug(
+  slug: string
+): Promise<BlogPost | null> {
+  try {
+    const query = `*[_type == "blogPost" && slug.current == $slug][0]{
+      _id,
+      title,
+      slug,
+      excerpt,
+      content,
+      featuredImage,
+      author,
+      publishedAt,
+      category,
+      tags
+    }`;
+    return await client.fetch(query, { slug });
+  } catch (error) {
+    console.error("Error fetching blog post by slug:", error);
+    return null;
+  }
+}
+
+export async function getBlogPostsByCategory(
+  category: string
+): Promise<BlogPost[]> {
+  try {
+    const query = `*[_type == "blogPost" && category == $category] | order(publishedAt desc){
+      _id,
+      title,
+      slug,
+      excerpt,
+      featuredImage,
+      author,
+      publishedAt,
+      category,
+      tags
+    }`;
+    return await client.fetch(query, { category });
+  } catch (error) {
+    console.error("Error fetching blog posts by category:", error);
+    return [];
   }
 }
