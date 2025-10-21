@@ -32,7 +32,6 @@ export default function Footer({ isDark = false }: { isDark?: boolean }) {
 
     fetchData();
   }, []);
-  console.log(socialLinks);
   if (loading) return null;
 
   const theme = isDark ? "dark" : "light";
