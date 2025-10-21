@@ -44,7 +44,7 @@ export interface SiteSettings {
   heroImage: any;
   email: string;
   phone: string;
-  socialLinks: SocialLink[];
+
   about: AboutSection;
   specialOffer: {
     enabled: boolean;
@@ -130,15 +130,16 @@ export const queries = {
     specialOffer
   }`,
 
-  socialSettings: `*[_type == "socialSettings"][0]{
-    links[]{
+  socialSettings: `*[_type == "socialSettings"] {
+    links[] {
       platform,
       url,
+      altText,
+      order,
       lightIcon,
-      darkIcon,
-      altText
+      darkIcon
     }
-  }`,
+  }[0].links`,
 
   services: `*[_type == "service"] | order(order asc){
     _id,
@@ -217,6 +218,14 @@ export async function getProjects(): Promise<Project[]> {
     return await client.fetch(queries.projects);
   } catch (error) {
     console.error("Error fetching projects:", error);
+    return [];
+  }
+}
+export async function getSocialLinks(): Promise<SocialLink[]> {
+  try {
+    return await client.fetch(queries.socialSettings);
+  } catch (error) {
+    console.error("Error fetching social:", error);
     return [];
   }
 }

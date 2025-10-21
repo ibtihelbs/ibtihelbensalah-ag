@@ -1,41 +1,38 @@
-import { useState } from "react";
-const services = [
-  {
-    title: "Design to Website",
-    hover: "Pixel-perfect interface conversion from Figma/Sketch.",
-  },
-  {
-    title: "Web Design & Development",
-    hover: "Responsive, modern, and fast websites.",
-  },
-  {
-    title: "Performance Optimization",
-    hover: "Boost loading speed and SEO rankings.",
-  },
-  { title: "CMS Integration", hover: "Easy content management with Sanity." },
-  {
-    title: "MVP Development",
-    hover: "Build your startup idea quickly and effectively.",
-  },
-];
-type serviceType = {
-  title: string;
-  hover: string;
-};
+import { useState, useEffect } from "react";
+import { getServices, type Service } from "../sanity.io";
+
 export default function Services() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState<Service[]>([]);
+  useEffect(() => {
+    async function loadPricingPlans() {
+      const data = await getServices();
+      setServices(data);
+      setLoading(false);
+    }
+    loadPricingPlans();
+  }, []);
+  if (loading) {
+    return (
+      <section id="services-section">
+        <h1 className="text-center">What do i provide</h1>
 
+        <p className="text-center">Loading services...</p>
+      </section>
+    );
+  }
   return (
     <section id="services-section">
       <h1 className="text-center">What do i provide</h1>
       <ul>
-        {services.map((service: serviceType, index: any) => (
+        {services.map((service: Service, index: any) => (
           <li
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            {hoveredIndex === index ? service.hover : service.title}
+            {hoveredIndex === index ? service.description : service.title}
           </li>
         ))}
       </ul>

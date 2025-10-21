@@ -1,25 +1,38 @@
 import { useState, useEffect } from "react";
-import { getSiteSettings, urlFor, type SiteSettings } from "../sanity.io";
+import {
+  getSocialLinks,
+  getSiteSettings,
+  urlFor,
+  type SiteSettings,
+  type SocialLink,
+} from "../sanity.io";
 
 export default function Footer({ isDark = false }: { isDark?: boolean }) {
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]); // Changed to array
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSiteSettings = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getSiteSettings();
-        setSiteSettings(data);
+        // Fetch both site settings and social links in parallel
+        const [settingsData, socialData] = await Promise.all([
+          getSiteSettings(),
+          getSocialLinks(),
+        ]);
+
+        setSiteSettings(settingsData);
+        setSocialLinks(socialData);
       } catch (error) {
-        console.error("Error fetching site settings:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchSiteSettings();
+    fetchData();
   }, []);
-
+  console.log(socialLinks);
   if (loading) return null;
 
   const theme = isDark ? "dark" : "light";
@@ -35,8 +48,8 @@ export default function Footer({ isDark = false }: { isDark?: boolean }) {
       >
         click to email me
       </a>
-      <div className="social-links ">
-        {siteSettings?.socialLinks?.map((link, index) => (
+      <div className="social-links">
+        {socialLinks.map((link: SocialLink, index: number) => (
           <a
             key={index}
             href={link.url}
