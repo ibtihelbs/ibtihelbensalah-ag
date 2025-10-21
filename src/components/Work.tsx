@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { getProjects, type Project, urlFor } from "../sanity.io";
+import { useTheme } from "../context";
 
-type WorkProps = {
-  isDark: boolean;
-};
-
-export default function Work({ isDark }: WorkProps) {
+export default function Work() {
   const [projects, setProjects] = useState<Project[] | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
@@ -15,6 +12,7 @@ export default function Work({ isDark }: WorkProps) {
       ? `./images/icons/${icon}.svg`
       : `./images/icons/${icon}-dark.svg`;
   };
+  const { isDark } = useTheme();
 
   useEffect(() => {
     async function loadProjects() {

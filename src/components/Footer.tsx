@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTheme } from "../context";
 import {
   getSocialLinks,
   getSiteSettings,
@@ -6,11 +7,11 @@ import {
   type SiteSettings,
   type SocialLink,
 } from "../sanity.io";
-
-export default function Footer({ isDark = false }: { isDark?: boolean }) {
+export default function Footer() {
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]); // Changed to array
   const [loading, setLoading] = useState(true);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
