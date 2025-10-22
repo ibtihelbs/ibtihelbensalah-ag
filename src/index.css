@@ -271,13 +271,17 @@ header nav a {
   font-weight: var(--font-weight-medium);
   letter-spacing: -0.02em;
 }
-
-/* ---------- HERO SECTION ---------- */
-#hero-section {
+section {
   display: flex;
   flex-direction: column;
+}
+#hero-section,
+#about-section {
   justify-content: center;
   align-items: center;
+}
+/* ---------- HERO SECTION ---------- */
+#hero-section {
   min-height: var(--hero-min-height);
 }
 
@@ -287,17 +291,13 @@ header nav a {
 
 /* ---------- ABOUT SECTION ---------- */
 #about-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   min-height: 60vh;
 }
 
 /* ---------- SERVICES SECTION ---------- */
-#services-section {
+.service-content {
   display: flex;
-  flex-direction: column;
+  gap: var(--space-3);
 }
 
 #services-section h1 {
@@ -326,55 +326,11 @@ header nav a {
   text-transform: capitalize;
 }
 
-#services-section li:nth-child(1)::before {
-  content: url("../images/icons/a-b-2-dark.svg");
-  margin-right: var(--space-2);
-}
-#services-section li:nth-child(2)::before {
-  content: url("../images/icons/app-window-dark.svg");
-  margin-right: var(--space-2);
-}
-#services-section li:nth-child(3)::before {
-  content: url("../images/icons/brand-speedtest-dark.svg");
-  margin-right: var(--space-2);
-}
-#services-section li:nth-child(4)::before {
-  content: url("../images/icons/sitemap-dark.svg");
-  margin-right: var(--space-2);
-}
-#services-section li:nth-child(5)::before {
-  content: url("../images/icons/briefcase-dark.svg");
-  margin-right: var(--space-2);
-}
-body.light #services-section li:nth-child(1)::before {
-  content: url("../images/icons/a-b-2.svg");
-  margin-right: var(--space-2);
-}
-body.light #services-section li:nth-child(2)::before {
-  content: url("../images/icons/app-window.svg");
-  margin-right: var(--space-2);
-}
-body.light #services-section li:nth-child(3)::before {
-  content: url("../images/icons/brand-speedtest.svg");
-  margin-right: var(--space-2);
-}
-body.light #services-section li:nth-child(4)::before {
-  content: url("../images/icons/sitemap.svg");
-  margin-right: var(--space-2);
-}
-body.light #services-section li:nth-child(5)::before {
-  content: url("../images/icons/briefcase.svg");
-  margin-right: var(--space-2);
-}
 #services-section li:hover {
   transform: translateX(4px);
 }
 
 /* ---------- WORK SECTION ---------- */
-#work-section {
-  display: flex;
-  flex-direction: column;
-}
 
 .tags-big {
   display: flex;
@@ -479,10 +435,7 @@ body.light #services-section li:nth-child(5)::before {
 }
 
 /* ---------- PRICING SECTION ---------- */
-#pricing-section {
-  display: flex;
-  flex-direction: column;
-}
+
 .mobile-pricing {
   display: none;
 }
