@@ -21,6 +21,51 @@ export function urlFor(source: SanityImageSource) {
 }
 
 // Type definitions
+export interface SanityImage {
+  asset: {
+    _id: string;
+    url: string;
+    metadata?: {
+      dimensions: {
+        width: number;
+        height: number;
+        aspectRatio: number;
+      };
+    };
+  };
+  alt?: string;
+}
+
+export interface NavigationItem {
+  type: "page" | "section" | "homeSection";
+  label: string;
+  pageRoute?: string;
+  sectionId?: string;
+  useRelativePath?: boolean;
+  isExternal?: boolean;
+  externalUrl?: string;
+  icon?: SanityImage;
+  order?: number;
+  isActive?: boolean;
+}
+
+export interface HeaderIcons {
+  mobileMenuIcon?: SanityImage;
+  mobileMenuCloseIcon?: SanityImage;
+  themeIcons?: {
+    lightThemeIcon?: SanityImage;
+    darkThemeIcon?: SanityImage;
+  };
+}
+
+export interface HeaderData {
+  name: string;
+  logo?: SanityImage;
+  navigationItems?: NavigationItem[];
+  themeToggle?: boolean;
+  icons?: HeaderIcons;
+}
+
 export interface SocialLink {
   platform: string;
   url: string;
@@ -130,6 +175,77 @@ export const queries = {
     specialOffer
   }`,
 
+  header: `*[_type == "header"][0]{
+    name,
+    logo,
+    navigationItems[]{
+      type,
+      label,
+      pageRoute,
+      sectionId,
+      useRelativePath,
+      isExternal,
+      externalUrl,
+      icon{
+        asset->{
+          _id,
+          url,
+          metadata{
+            dimensions
+          }
+        },
+        alt
+      },
+      order,
+      isActive
+    },
+    themeToggle,
+    icons{
+      mobileMenuIcon{
+        asset->{
+          _id,
+          url,
+          metadata{
+            dimensions
+          }
+        },
+        alt
+      },
+      mobileMenuCloseIcon{
+        asset->{
+          _id,
+          url,
+          metadata{
+            dimensions
+          }
+        },
+        alt
+      },
+      themeIcons{
+        lightThemeIcon{
+          asset->{
+            _id,
+            url,
+            metadata{
+              dimensions
+            }
+          },
+          alt
+        },
+        darkThemeIcon{
+          asset->{
+            _id,
+            url,
+            metadata{
+              dimensions
+            }
+          },
+          alt
+        }
+      }
+    }
+  }`,
+
   socialSettings: `*[_type == "socialSettings"] {
     links[] {
       platform,
@@ -204,6 +320,15 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
   }
 }
 
+export async function getHeaderData(): Promise<HeaderData | null> {
+  try {
+    return await client.fetch(queries.header);
+  } catch (error) {
+    console.error("Error fetching header data:", error);
+    return null;
+  }
+}
+
 export async function getServices(): Promise<Service[]> {
   try {
     return await client.fetch(queries.services);
@@ -221,6 +346,7 @@ export async function getProjects(): Promise<Project[]> {
     return [];
   }
 }
+
 export async function getSocialLinks(): Promise<SocialLink[]> {
   try {
     return await client.fetch(queries.socialSettings);
