@@ -149,15 +149,40 @@ export default function Header() {
       ?.filter((item) => item.isActive)
       .sort((a, b) => (a.order || 0) - (b.order || 0)) || [];
 
-  // Get appropriate menu icon based on state
-  const menuIcon =
-    menuOpen && icons?.mobileMenuCloseIcon
-      ? icons.mobileMenuCloseIcon
-      : icons?.mobileMenuIcon;
-  const menuIconAlt =
-    menuOpen && icons?.mobileMenuCloseIcon
-      ? icons.mobileMenuCloseIcon.alt || "Close menu"
-      : icons?.mobileMenuIcon?.alt || "Open menu";
+  // Get appropriate menu icons based on theme and state
+  const getMenuIcon = () => {
+    if (menuOpen) {
+      // Close icon - choose based on theme
+      return isDark
+        ? icons?.mobileMenuCloseIconDark || icons?.mobileMenuCloseIcon
+        : icons?.mobileMenuCloseIcon || icons?.mobileMenuCloseIconDark;
+    } else {
+      // Menu icon - choose based on theme
+      return isDark
+        ? icons?.mobileMenuIconDark || icons?.mobileMenuIcon
+        : icons?.mobileMenuIcon || icons?.mobileMenuIconDark;
+    }
+  };
+
+  const getMenuIconAlt = (): string => {
+    if (menuOpen) {
+      return isDark
+        ? icons?.mobileMenuCloseIconDark?.alt ||
+            icons?.mobileMenuCloseIcon?.alt ||
+            "Close menu"
+        : icons?.mobileMenuCloseIcon?.alt ||
+            icons?.mobileMenuCloseIconDark?.alt ||
+            "Close menu";
+    } else {
+      return isDark
+        ? icons?.mobileMenuIconDark?.alt ||
+            icons?.mobileMenuIcon?.alt ||
+            "Open menu"
+        : icons?.mobileMenuIcon?.alt ||
+            icons?.mobileMenuIconDark?.alt ||
+            "Open menu";
+    }
+  };
 
   // Get appropriate theme icon based on current theme
   const themeIcon = isDark
@@ -188,7 +213,7 @@ export default function Header() {
           aria-label="Toggle menu"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <img src={getIconUrl(menuIcon)} alt={menuIconAlt} />
+          <img src={getIconUrl(getMenuIcon())} alt={getMenuIconAlt()} />
         </button>
 
         <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
