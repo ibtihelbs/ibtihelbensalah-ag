@@ -1,0 +1,28 @@
+# robots.txt for https://ibtihelbensalah-ag.onrender.com/
+
+# Allow all search engines to crawl the entire site
+User-agent: *
+Allow: /
+
+# Disallow crawling of certain files/folders (if needed)
+# Uncomment these lines if you want to block specific paths:
+# Disallow: /admin/
+# Disallow: /private/
+# Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://ibtihelbensalah-ag.onrender.com/sitemap.xml
+
+# Crawl-delay (optional - uncomment if needed)
+# Crawl-delay: 10
+
+# Specific rules for common bots (optional)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block bad bots (optional - uncomment if needed)
+# User-agent: BadBot
+# Disallow: /
