@@ -22,6 +22,7 @@ export default function Header() {
     };
 
     fetchHeaderData();
+    console.log(headerData);
   }, []);
 
   const getIconUrl = (icon: any): string => {
