@@ -61,7 +61,7 @@ export default function HeroAndAbout() {
   return (
     <>
       <section id="hero-section">
-        <h1 className="text-center">
+        <h2 className="text-center">
           {heroHeadline ? parseHeadline(heroHeadline) : "Loading..."}
         </h1>
         <a className="pill cta" href={`mailto:${email}`}>
@@ -81,7 +81,7 @@ export default function HeroAndAbout() {
       </section>
 
       <section id="about-section">
-        <h1 className="text-center">
+        <h2 className="text-center">
           {about?.heading ? parseHeadline(about.heading) : "Loading..."}
         </h1>
         <h3 className="text-center">

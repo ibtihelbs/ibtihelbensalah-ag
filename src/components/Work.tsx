@@ -30,7 +30,7 @@ export default function Work() {
   if (loading) {
     return (
       <section id="work-section">
-        <h1 className="text-center">Recent Work</h1>
+        <h2 className="text-center">Recent Work</h2>
         <p className="text-center">Loading projects...</p>
       </section>
     );
@@ -38,7 +38,7 @@ export default function Work() {
 
   return (
     <section id="work-section">
-      <h1 className="text-center">recent work</h1>
+      <h2 className="text-center">recent work</h2>
 
       {/* Technologies tags - you might want to generate these dynamically from projects */}
       <div className="tags-big text-center">

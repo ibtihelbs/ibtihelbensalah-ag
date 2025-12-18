@@ -31,7 +31,7 @@ export default function Pricing() {
   if (loading) {
     return (
       <section id="pricing-section">
-        <h1 className="text-center">pricing</h1>
+        <h2 className="text-center">pricing</h2>
         <p className="text-center">Loading pricing plans...</p>
       </section>
     );
@@ -39,7 +39,7 @@ export default function Pricing() {
 
   return (
     <section id="pricing-section">
-      <h1 className="text-center">pricing</h1>
+      <h2 className="text-center">pricing</h2>
       <p className="text-center">
         Special Offer – Limited until the 1st of each month! 🎉 Book your
         website project before the 1st and enjoy -20% off on any pack. Don't

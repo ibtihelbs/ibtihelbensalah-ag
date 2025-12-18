@@ -39,7 +39,7 @@ export default function Footer() {
 
   return (
     <footer id="contact">
-      <h1 className="text-center">contact</h1>
+      <h2 className="text-center">contact</h2>
       <a
         href={`mailto:${
           siteSettings?.email ||

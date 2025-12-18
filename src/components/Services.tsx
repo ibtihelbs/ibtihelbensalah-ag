@@ -32,7 +32,7 @@ export default function Services() {
   if (loading) {
     return (
       <section id="services-section" className="services-section">
-        <h1 className="text-center">What do I provide</h1>
+        <h2 className="text-center">What do I provide</h2>
         <p className="text-center">Loading services...</p>
       </section>
     );
@@ -41,7 +41,7 @@ export default function Services() {
   if (error) {
     return (
       <section id="services-section" className="services-section">
-        <h1 className="text-center">What do I provide</h1>
+        <h2 className="text-center">What do I provide</h2>
         <p className="text-center error">{error}</p>
       </section>
     );
@@ -50,7 +50,7 @@ export default function Services() {
   if (services.length === 0) {
     return (
       <section id="services-section" className="services-section">
-        <h1 className="text-center">What do I provide</h1>
+        <h2 className="text-center">What do I provide</h2>
         <p className="text-center">No services available at the moment.</p>
       </section>
     );
@@ -58,7 +58,7 @@ export default function Services() {
 
   return (
     <section id="services-section" className="services-section">
-      <h1 className="text-center">What do I provide</h1>
+      <h2 className="text-center">What do I provide</h2>
 
       <ul className="services-list">
         {services.map((service: Service, index: number) => (

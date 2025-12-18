@@ -205,6 +205,17 @@ h1 {
   margin-bottom: var(--space-6);
 }
 
+h2.text-center span {
+  font-family: var(--font-family-heading-span);
+  text-transform: capitalize !important;
+}
+
+h.text-center {
+  font-size: var(--font-size-h1);
+  max-width: 800px;
+  margin-bottom: var(--space-6);
+}
+
 h2 {
   font-size: var(--font-size-h2);
   max-width: 600px;

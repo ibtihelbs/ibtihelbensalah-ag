@@ -50,7 +50,7 @@ export default function Blog() {
       <div className="container">
         {/* Header */}
         <div className="blog-header">
-          <h1 className="text-center">Blog</h1>
+          <h2 className="text-center">Blog</h2>
           <h3 className="text-center">
             Thoughts, tutorials, and insights about web development, design, and
             technology.
