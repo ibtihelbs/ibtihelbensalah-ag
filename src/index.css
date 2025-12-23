@@ -379,6 +379,7 @@ section {
   border: 1px solid var(--dark-text);
   padding: var(--list-item-padding);
   border-radius: var(--radius-lg);
+  align-self: self-start;
 }
 
 #project-preview img {
